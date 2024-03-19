@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * This is the main class that starts the Spring Boot application.
  */
 @SpringBootApplication // This annotation marks this class as a Spring Boot application.
+
 public class Application {
 
     /**

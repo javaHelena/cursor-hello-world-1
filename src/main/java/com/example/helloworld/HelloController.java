@@ -1,5 +1,6 @@
 package com.example.helloworld;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ public class HelloController {
      * This method handles GET requests for the /hello endpoint.
      * @return A simple string greeting.
      */
+    @CrossOrigin(origins = "http://localhost:3000") // Allow only the React app to make requests
     @GetMapping("/hello") // Maps HTTP GET requests onto specific handler methods.
     public String sayHello() {
         return "Hello World"; // Returns a simple string.
