@@ -1,22 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 import axios from 'axios';
-import './App.css'; // Add this line
+import './App.css';
 
-function App() {
-  const [message, setMessage] = useState('');
-  const [personalizedMessage, setPersonalizedMessage] = useState('');
-  const [name, setName] = useState('');
+// Component for the "/hello" route
+function Hello() {
+  const [message, setMessage] = React.useState('');
 
-  useEffect(() => {
-    // General greeting
+  React.useEffect(() => {
     axios.get('http://localhost:8080/hello')
       .then(response => {
         setMessage(response.data);
       })
       .catch(error => console.error('There was an error!', error));
+  }, []);
 
-    // Personalized greeting to "Helena"
-    const personalizedUrl = name ? `http://localhost:8080/hello/${name}` : 'http://localhost:8080/hello/Helena';
+  return <div>{message}</div>;
+}
+
+// Component for the "/hello/:name" route
+function HelloName() {
+  const [personalizedMessage, setPersonalizedMessage] = React.useState('');
+  const { name } = useParams(); // This gets the "name" parameter from the URL
+
+  React.useEffect(() => {
+    const personalizedUrl = `http://localhost:8080/hello/${name}`;
     axios.get(personalizedUrl)
       .then(response => {
         setPersonalizedMessage(response.data);
@@ -24,17 +32,19 @@ function App() {
       .catch(error => console.error('There was an error!', error));
   }, [name]); // This will re-run the effect if `name` changes
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
+  return <div>{personalizedMessage}</div>;
+}
 
+function App() {
   return (
-    <div className="appContainer"> {/* Use the class name here */}
-      <div>{message}</div>
-      <div>{personalizedMessage}</div>
-      {/* Uncomment below to allow dynamic name input */}
-      {/* <input type="text" value={name} onChange={handleNameChange} placeholder="Enter name for personalized greeting" /> */}
-    </div>
+    <Router>
+      <div className="appContainer">
+        <Routes>
+          <Route path="/hello" element={<Hello />} />
+          <Route path="/hello/:name" element={<HelloName />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
