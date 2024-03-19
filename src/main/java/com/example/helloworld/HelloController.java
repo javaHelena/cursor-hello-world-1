@@ -1,6 +1,7 @@
 package com.example.helloworld;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,4 +18,15 @@ public class HelloController {
     public String sayHello() {
         return "Hello World"; // Returns a simple string.
     }
+
+        /**
+     * This method handles GET requests for the /hello/{name} endpoint.
+     * @param name The name to include in the greeting.
+     * @return A personalized greeting message.
+     */
+    @GetMapping("/hello/{name}")
+    public String sayHelloToName(@PathVariable String name) {
+        return "Hello " + name;
+    }
+
 }

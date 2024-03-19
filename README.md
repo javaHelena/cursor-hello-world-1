@@ -26,13 +26,19 @@ To run the application, follow these steps:
 
 ## Accessing the Hello World Endpoint
 
-Once the application is running, you can access the Hello World endpoint by opening a web browser and visiting:
+Once the application is running, you can access the Hello World endpoints by opening a web browser and visiting:
 
-```
-http://localhost:8080/hello
-```
+- For the basic greeting:
+  ```
+  http://localhost:8080/hello
+  ```
+  You should see a simple message that says "Hello World".
 
-You should see a simple message that says "Hello World".
+- For a personalized greeting:
+  ```
+  http://localhost:8080/hello/John
+  ```
+  Replace `John` with any name you wish to use. You should see a message that says "Hello John".
 
 ## Stopping the Application
 
@@ -41,7 +47,9 @@ To stop the application, go back to the terminal where it's running and press `C
 ## Understanding the Code
 
 - `Application.java`: This is the main class that starts the Spring Boot application.
-- `HelloController.java`: This class is a Spring MVC controller that handles HTTP GET requests to the `/hello` endpoint and returns a "Hello World" message.
+- `HelloController.java`: This class is a Spring MVC controller that handles HTTP GET requests. It has two endpoints:
+  - `/hello` which returns a "Hello World" message.
+  - `/hello/{name}` which takes a name as a parameter and returns a personalized "Hello {name}" message.
 - `application.properties`: This file contains configuration for the application, such as the server port and logging levels.
 
 For more details, refer to the comments in the code.
